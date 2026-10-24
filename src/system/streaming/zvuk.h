@@ -5,7 +5,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "src/system/streaming/cardimport.h"
 
 // Zvuk (zvuk.com, formerly SberZvuk): the account, the collection, search and
 // the address of a track's file. Fork only, built with SONIX_ZVUK (Makefile);
@@ -128,7 +127,7 @@ bool zvuk_token_clean(const char *in, char *out, size_t size);
 // REFUSED (401/403, or an anonymous token), BLOCKED (418 or an HTML page).
 // `message` gets the sentence for the toast. Worker thread. The diagnostic
 // block goes to the log whatever the outcome.
-cardimport_result_t zvuk_sign_in(const char *token, char *message, size_t message_size);
+int zvuk_sign_in(const char *token, char *message, size_t message_size);
 
 // Reads the profile again (name, subscription), for the account card. Worker.
 bool zvuk_refresh_profile(void);

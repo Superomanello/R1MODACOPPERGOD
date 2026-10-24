@@ -279,7 +279,7 @@ void zvuk_liked_mark(zvuk_item_t kind, const char *id, bool in) {
 
 static bool session_fresh = true; // the next request is the session's first
 
-static cardimport_result_t token_file_validate(const char lines[][CARDIMPORT_LINE_MAX], int count, char *message,
+static int token_file_validate(const char lines[][CARDIMPORT_LINE_MAX], int count, char *message,
 											   size_t message_size);
 
 static void build_headers(void) {
@@ -309,7 +309,7 @@ void zvuk_init(void) {
 	printf("zvuk: %s, base %s\n", zvuk_logged_in() ? "saved session" : "no session", base_url);
 }
 
-static cardimport_result_t token_file_validate(const char lines[][CARDIMPORT_LINE_MAX], int count, char *message,
+static int token_file_validate(const char lines[][CARDIMPORT_LINE_MAX], int count, char *message,
 											   size_t message_size) {
 	// The token is the first line that is not empty; a whole profile answer
 	// pasted in is one line too.
@@ -967,7 +967,7 @@ bool zvuk_token_clean(const char *in, char *out, size_t size) {
 
 static void probe_after_sign_in(void);
 
-cardimport_result_t zvuk_sign_in(const char *raw, char *message, size_t message_size) {
+int zvuk_sign_in(const char *raw, char *message, size_t message_size) {
 	char tok[ZVUK_TOKEN_MAX];
 	message[0] = '\0';
 	if (!zvuk_token_clean(raw, tok, sizeof(tok))) {
@@ -1001,7 +1001,7 @@ cardimport_result_t zvuk_sign_in(const char *raw, char *message, size_t message_
 		}
 	}
 	diag_thread = false;
-	cardimport_result_t result;
+	int result;
 	switch (a) {
 	case ANSWER_OK:
 		if (anonymous) {

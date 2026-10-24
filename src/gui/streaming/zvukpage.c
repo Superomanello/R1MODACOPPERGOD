@@ -1870,7 +1870,7 @@ static void import_note_refresh(void) {
 		return;
 	}
 	char message[256] = "";
-	cardimport_result_t result;
+	int result;
 	if (cardimport_busy("zvuk")) {
 		snprintf(message, sizeof(message), "%s", tr("zvuk_import_busy"));
 	} else if (cardimport_last("zvuk", &result, message, sizeof(message)) && result != CARDIMPORT_OK) {
@@ -1925,7 +1925,7 @@ static void import_async(void *user) {
 	}
 }
 
-static void import_listener(const char *service, cardimport_result_t result, const char *message) {
+static void import_listener(const char *service, int result, const char *message) {
 	(void)result;
 	(void)message;
 	if (strcmp(service, "zvuk") == 0) {
